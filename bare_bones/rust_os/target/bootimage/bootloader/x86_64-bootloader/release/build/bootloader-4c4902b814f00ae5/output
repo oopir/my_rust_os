@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=C:\Users\ofir\OneDrive - mail.tau.ac.il\personal\my_rust_os\bare_bones\rust_os\Cargo.toml
+cargo:rustc-link-search=native=C:\Users\ofir\OneDrive - mail.tau.ac.il\personal\my_rust_os\bare_bones\rust_os\target\bootimage\bootloader\x86_64-bootloader\release\build\bootloader-4c4902b814f00ae5\out
+cargo:rustc-link-lib=static=kernel_bin-rust_os
+cargo:rerun-if-env-changed=KERNEL
+cargo:rerun-if-env-changed=KERNEL_MANIFEST
+cargo:rerun-if-changed=C:\Users\ofir\OneDrive - mail.tau.ac.il\personal\my_rust_os\bare_bones\rust_os\target\custom_target\debug\rust_os
+cargo:rerun-if-changed=build.rs

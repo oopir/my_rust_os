@@ -1,0 +1,1 @@
+C:\Users\ofir\OneDrive\ -\ mail.tau.ac.il\personal\my_rust_os\bare_bones\rust_os\target\custom_target\debug\rust_os: C:\Users\ofir\OneDrive\ -\ mail.tau.ac.il\personal\my_rust_os\bare_bones\rust_os\src\main.rs
