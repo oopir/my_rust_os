@@ -6,4 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bootloader = "0.9.8"
+bootloader = "0.9.8"    # library of bootloader, which loads our kernel
+                        # and compiles the loader+kernel to an ELF executable

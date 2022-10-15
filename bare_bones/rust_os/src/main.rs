@@ -10,7 +10,7 @@ fn panic(_info: &PanicInfo) -> ! {
 
 static HELLO: &[u8] = b"Hello World!";
 
-#[no_mangle]    // makes sure the compiler does not change the functino's name
+#[no_mangle]    // makes sure the compiler does not change the function's name
 pub extern "C" fn _start() -> ! {
     let vga_buffer = 0xb8000 as *mut u8; 
 
