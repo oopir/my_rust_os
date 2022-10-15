@@ -1,2 +1,2 @@
 bare_bones/rust_os/target/*
-!bare_bones/rust_os/target/custom_target/*.bin
+!bare_bones/rust_os/target/custom_target/debug/*.bin
