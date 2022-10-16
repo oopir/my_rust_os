@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 bootloader = "0.9.8"    # library of bootloader, which loads our kernel
                         # and compiles the loader+kernel to an ELF executable
+volatile = "0.2.6"
