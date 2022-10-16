@@ -6,15 +6,15 @@ use core::panic::PanicInfo;
 mod vga_buffer;
 
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
 
-static HELLO: &[u8] = b"Hello World!";
-
 #[no_mangle]    // makes sure the compiler does not change the function's name
 pub extern "C" fn _start() -> ! {
-    vga_buffer::print_something();
+
+    println!("Hello World{}", "!");
     
     loop {}
 }

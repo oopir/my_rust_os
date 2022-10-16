@@ -1,5 +1,7 @@
-use volatile::Volatile;
-use core::fmt;
+use volatile::Volatile;         // for preventing optimizer to ignore VGA buffer
+use core::fmt;                  // for string formatting features
+use lazy_static::lazy_static;   // for having a static Writer without Rust issues
+use spin::Mutex;                // for resolving issues with mutability & static vars
 
 // -------------------------- enums & consts --------------------------
 
@@ -109,7 +111,7 @@ impl Writer {
         };
         // fill last line with spaces
         for col in 0..BUFFER_WIDTH {
-            self.buffer.chars[BUFFER_HEIGHT-1][col].write(blank);
+            self.buffer.chars[row][col].write(blank);
         }
 
     }
@@ -132,19 +134,38 @@ impl fmt::Write for Writer {
 }
 
 
-// ----------------------- module's public funcs -----------------------
+// ----------------------- module's public WRITER -----------------------
 
 
-pub fn print_something() {
-    use core::fmt::Write;
-
-    let mut writer = Writer {
+lazy_static! {
+    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
-        color_code : ColorCode::new(Color::Yellow, Color::Black),
+        color_code: ColorCode::new(Color::Yellow, Color::Black),
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
-    };
-    
-    writer.write_byte(b'H');
-    writer.write_string("ello, ");
-    write!{writer, "hopa hey {} \neize keff {}\n\nend", 234, 1.0/9.0}.unwrap();
+    });
+}
+
+
+// ---------------------- println macro definition ----------------------
+
+// _print receives arguments in a format that fmt::Write knows to parse,
+// and then uses our writer to print the given data
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    use core::fmt::Write;
+    WRITER.lock().write_fmt(args).unwrap();
+}
+
+// converts the given arguments to a format that the 'fmt' library knows,
+// and then calls _print with the conversion's output
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
+}
+
+// same as 'print', but adds a newline character
+#[macro_export]
+macro_rules! println {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
 }
