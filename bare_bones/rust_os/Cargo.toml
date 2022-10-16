@@ -8,9 +8,9 @@ edition = "2021"
 [dependencies]
 bootloader = "0.9.8"    # library of bootloader, which loads our kernel
                         # library also compiles the loader+kernel to an ELF executable
-volatile = "0.2.6"
-spin = "0.5.2"
-
+volatile = "0.2.6"      # adds volatile feature
+spin = "0.5.2"          # implements a basic mutex
+x86_64 = "0.14.2"       # provides x86_64-specific functions & register access
 
 [dependencies.lazy_static]
 version = "1.0"
