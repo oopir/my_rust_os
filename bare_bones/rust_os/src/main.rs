@@ -8,26 +8,26 @@ mod vga_buffer;
 pub mod interrupts;
 pub mod gdt;
 
+
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {
-    }
+    hlt_loop();
 }
+
 
 #[no_mangle]    // makes sure the compiler does not change the function's name
 pub extern "C" fn _start() -> ! {
     
-    println!("Hello World{}", "!");
+    println!("System is up!");
     
     init();
 
     println!("About to enter infinite loop...");
     
-    loop {
-        print!("-")
-    }
+    hlt_loop();
 }
+
 
 fn init() {
     gdt::init();
@@ -35,4 +35,11 @@ fn init() {
     // the PIC initialization is unsafe since it's undefined when misconfigured
     unsafe { interrupts::PICS.lock().initialize() };
     x86_64::instructions::interrupts::enable(); // required to have IO interrupts
+}
+
+
+pub fn hlt_loop() -> ! {
+    loop {
+        x86_64::instructions::hlt();
+    }
 }

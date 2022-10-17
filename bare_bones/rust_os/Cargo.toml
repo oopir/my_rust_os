@@ -13,6 +13,8 @@ spin = "0.5.2"          # implements a basic mutex
 x86_64 = "0.14.2"       # provides x86_64-specific functions & register access
 pic8259 = "0.10.1"      # functions that program the controller which handles
                         # hardware interrupts and sends them to the CPU
+pc-keyboard = "0.5.0"   # translate 'scancodes' from keyboard interrupt to their keys
+
 
 [dependencies.lazy_static]
 version = "1.0"
