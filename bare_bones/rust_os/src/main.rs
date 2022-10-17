@@ -6,27 +6,33 @@ use core::panic::PanicInfo;
 
 mod vga_buffer;
 pub mod interrupts;
+pub mod gdt;
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    loop {
+    }
 }
 
 #[no_mangle]    // makes sure the compiler does not change the function's name
 pub extern "C" fn _start() -> ! {
-
+    
     println!("Hello World{}", "!");
     
     init();
 
-    x86_64::instructions::interrupts::int3();
-    
     println!("About to enter infinite loop...");
-
-    loop {}
+    
+    loop {
+        print!("-")
+    }
 }
 
 fn init() {
+    gdt::init();
     interrupts::init_idt();
+    // the PIC initialization is unsafe since it's undefined when misconfigured
+    unsafe { interrupts::PICS.lock().initialize() };
+    x86_64::instructions::interrupts::enable(); // required to have IO interrupts
 }

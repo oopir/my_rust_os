@@ -95,7 +95,8 @@ impl Writer {
     fn new_line(&mut self) {
         for row in 1..BUFFER_HEIGHT {
             for col in 0..BUFFER_WIDTH {
-                let ch = self.buffer.chars[row][col].read();  // 'read()' gets char from Volatile obj
+                // in the following line, 'read()' gets char from Volatile obj
+                let ch = self.buffer.chars[row][col].read();  
                 self.buffer.chars[row-1][col].write(ch);
             }
         }
@@ -153,7 +154,13 @@ lazy_static! {
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
     use core::fmt::Write;
-    WRITER.lock().write_fmt(args).unwrap();
+    use x86_64::instructions::interrupts;
+    
+    // disable interrupts to avoid deadlock from interrupts that print.
+    // then, print.
+    interrupts::without_interrupts(|| {
+        WRITER.lock().write_fmt(args).unwrap();
+    })
 }
 
 // converts the given arguments to a format that the 'fmt' library knows,

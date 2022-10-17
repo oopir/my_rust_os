@@ -11,6 +11,8 @@ bootloader = "0.9.8"    # library of bootloader, which loads our kernel
 volatile = "0.2.6"      # adds volatile feature
 spin = "0.5.2"          # implements a basic mutex
 x86_64 = "0.14.2"       # provides x86_64-specific functions & register access
+pic8259 = "0.10.1"      # functions that program the controller which handles
+                        # hardware interrupts and sends them to the CPU
 
 [dependencies.lazy_static]
 version = "1.0"
