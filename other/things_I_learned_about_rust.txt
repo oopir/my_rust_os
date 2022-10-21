@@ -1,8 +1,0 @@
-
-- move semantics vs copy semantics
-  (explained in here https://doc.rust-lang.org/core/marker/trait.Copy.html)
-
-
-
-- useful packcages:
-  - volatile (can wrap any type to make it a volatile type)

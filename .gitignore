@@ -1,8 +1,8 @@
-bare_bones/rust_os/target/*
-!bare_bones/rust_os/target/custom_target
+target/*
+!target/custom_target
 
-bare_bones/rust_os/target/custom_target/*
-!bare_bones/rust_os/target/custom_target/debug
+target/custom_target/*
+!target/custom_target/debug
 
-bare_bones/rust_os/target/custom_target/debug/*
-!bare_bones/rust_os/target/custom_target/debug/bootimage-rust_os.bin
+target/custom_target/debug/*
+!target/custom_target/debug/bootimage-rust_os.bin
