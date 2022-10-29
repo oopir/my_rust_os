@@ -22,13 +22,13 @@ pub unsafe fn active_level_4_table(physical_memory_offset: VirtAddr)
 }
 
 
-pub unsafe fn virt_to_phys(virt: VirtAddr, physical_memory_offset: VirtAddr) 
+pub unsafe fn translate_addr(virt: VirtAddr, physical_memory_offset: VirtAddr) 
     -> Option<PhysAddr>
 {    
-    phys_to_virt_inner(virt, physical_memory_offset)
+    translate_addr_inner(virt, physical_memory_offset)
 }
 
-fn phys_to_virt_inner(virt: VirtAddr, physical_memory_offset: VirtAddr)
+fn translate_addr_inner(virt: VirtAddr, physical_memory_offset: VirtAddr)
     -> Option<PhysAddr>
 {
     use x86_64::structures::paging::page_table::FrameError;
